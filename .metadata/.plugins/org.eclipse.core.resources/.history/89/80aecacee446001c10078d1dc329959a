@@ -1,0 +1,9 @@
+package OptionPane;
+
+import javax.swing.JOptionPane;
+
+public class OptionPane extends JOptionPane {
+	public static void showOptionPane() {
+		
+	}
+}

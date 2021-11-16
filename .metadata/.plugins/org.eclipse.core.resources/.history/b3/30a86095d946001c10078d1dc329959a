@@ -1,0 +1,19 @@
+import javax.swing.JOptionPane;
+
+public class MainClass {
+	public static void main(String[] args) {
+		try {
+			DBInterface.init();
+			TableSetting.createDB();
+			TableSetting.createGrants();
+			TableSetting.createTables();
+			TableSetting.createData();
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, "AA");
+		} finally {
+			
+		}
+		
+		System.out.println("Setting Success!!");
+	}
+}

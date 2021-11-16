@@ -1,0 +1,11 @@
+package MainClass;
+
+import DBInterface.DBInterface;
+import Frame.Login;
+
+public class MainClass {
+	public static void main(String[] args) throws Exception {
+		DBInterface.init();
+		new Login();
+	}
+}

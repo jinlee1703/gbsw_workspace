@@ -1,9 +1,0 @@
-package Frame;
-
-import javax.swing.JFrame;
-
-public class ProductListFrame extends JFrame {
-	public ProductListFrame() {
-		
-	}
-}

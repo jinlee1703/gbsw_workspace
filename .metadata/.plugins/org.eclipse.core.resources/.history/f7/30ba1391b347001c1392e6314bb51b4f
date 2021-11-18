@@ -1,0 +1,53 @@
+package Frame;
+
+import java.sql.ResultSet;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import DBInterface.DBInterface;
+
+public class PurchaseFrame extends JFrame {
+	private int p_no;
+	private JPanel p = new JPanel(null);
+	private JLabel img = new JLabel();
+	private JTextField pName = new JTextField();
+	private JTextField pPrice = new JTextField();
+	private JCheckBox check1 = new JCheckBox("10% 할인 쿠폰 적용");
+	private JCheckBox check2 = new JCheckBox("30% 할인 쿠폰 적용");
+	private JTextField p_stock = new JTextField();
+	private JTextArea p_explanation = new JTextArea();
+	private JButton submitBtn = new JButton("구매하기");
+	private JButton cancelBtn = new JButton("취소하기");
+	private JScrollPane listScroll = new JScrollPane();
+	
+	public PurchaseFrame(int p_no) {
+		setTitle("구매");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.p_no = p_no
+		formDesign();
+		eventHandler();
+		setSize(500, 500);
+		setVisible(true);
+	}
+	
+	public void formDesign() {
+		add(p);
+		p.add(img);
+		img.setBounds(5, 5, 200, 200);
+	}
+	
+	public void eventHandler() {
+		
+	}
+	
+	public void findProduct(int p_no) {
+		ResultSet rs = DBInterface.stmt.executeQuery("select * from product where p_no='" + + "'")
+	}
+}

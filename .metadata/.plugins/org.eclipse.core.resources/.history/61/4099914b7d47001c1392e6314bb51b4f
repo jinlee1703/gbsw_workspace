@@ -1,0 +1,87 @@
+package Frame;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.sql.ResultSet;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
+import DBInterface.DBInterface;
+
+public class ProductListFrame extends JFrame {
+	private String id;
+	private JLabel nameLabel;
+	private JLabel category = new JLabel();
+	private JTextField productNameField = new JTextField();
+	private JTextField minimumPriceField = new JTextField();
+	private JTextField maximumPriceField = new JTextField();
+	private JButton searchBtn = new JButton("검색");
+	private JButton purchaseListBtn = new JButton("구매목록");
+	private JButton eventBtn = new JButton("출석 이벤트");
+	private JPanel topPanel = new JPanel(new BorderLayout());
+	private JPanel leftPanel = new JPanel(new BorderLayout());
+	private JPanel searchPanel = new JPanel(new BorderLayout());
+	private JPanel categoryPanel = new JPanel(new BorderLayout());
+	private JPanel listPanel = new JPanel(new BorderLayout());
+	private JPanel searchFieldPanel = new JPanel(new GridLayout(3, 2, 5, 5));
+	private JPanel categoryListPanel = new JPanel();
+	private JScrollPane categoryScroll = new JScrollPane(categoryListPanel);
+	private JLabel[] categoryLabel;
+	
+	public ProductListFrame(String id, String name) throws Exception {
+		setTitle("상품목록");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.id = id;
+		nameLabel = new JLabel("회원 : " + name);
+		nameLabel.setFont(new Font(null, Font.BOLD, 20));
+		formDesign();
+		eventHandler();
+		setSize(700, 700);
+		setVisible(true);
+	}
+	
+	public void formDesign() throws Exception {
+		add(topPanel, BorderLayout.NORTH);
+		topPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		topPanel.add(nameLabel, BorderLayout.WEST);
+		topPanel.add(eventBtn, BorderLayout.EAST);
+		
+		add(leftPanel, BorderLayout.WEST);
+		leftPanel.add(searchPanel, BorderLayout.NORTH);
+		searchPanel.add(searchFieldPanel, BorderLayout.NORTH);
+		searchFieldPanel.add(new JLabel("상품몀"));
+		searchFieldPanel.add(productNameField);
+		searchFieldPanel.add(new JLabel("최저 가격"));
+		searchFieldPanel.add(minimumPriceField);
+		searchFieldPanel.add(new JLabel("최대 가격"));
+		searchFieldPanel.add(maximumPriceField);
+		searchPanel.add(searchBtn, BorderLayout.SOUTH);
+		
+		leftPanel.add(categoryPanel, BorderLayout.CENTER);
+		categoryPanel.add(new JLabel)
+		categoryPanel.add(categoryListPanel, BorderLayout.CENTER);
+		categoryListPanel.setLayout(new BoxLayout(categoryListPanel, BoxLayout.Y_AXIS));
+		ResultSet rs = DBInterface.stmt.executeQuery("select count(*) from category");
+		rs.next();
+		categoryLabel = new JLabel[rs.getInt(1)];
+		rs = DBInterface.stmt.executeQuery("select * from category");
+		int cnt = 0;
+		while (rs.next()) {
+			categoryLabel[cnt] = new JLabel(rs.getString(2));
+			categoryListPanel.add(categoryLabel[cnt]);
+		}
+		categoryPanel.add(purchaseListBtn, BorderLayout.SOUTH);
+	}
+	
+	public void eventHandler() {
+		
+	}
+}

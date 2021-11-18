@@ -1,0 +1,40 @@
+package Frame;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class ProductListFrame extends JFrame {
+	private String id;
+	private String name;
+	private JTextField productNameField = new JTextField();
+	private JTextField minimumPriceField = new JTextField();
+	private JTextField maximumPriceField = new JTextField();
+	private JButton searchBtn = new JButton("검색");
+	private JButton purchaseList = new JButton("구매목록");
+	private JPanel searchPanel = new JPanel(new BorderLayout());
+	private JPanel categoryPanel = new JPanel(new BorderLayout());
+	private JPanel productPanel = new JPanel(new BorderLayout());
+	
+	public ProductListFrame(String id, String name) {
+		setTitle("상품목록");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.id = id;
+		this.name = name;
+		formDesign();
+		eventHandler();
+		setSize(700, 700);
+		setVisible(true);
+	}
+	
+	public void formDesign() {
+		
+	}
+	
+	public void eventHandler() {
+		
+	}
+}

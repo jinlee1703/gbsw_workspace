@@ -1,0 +1,13 @@
+package Frame;
+
+import javax.swing.JFrame;
+
+public class ProductListFrame extends JFrame {
+	public ProductListFrame() {
+		setTitle("상품목록");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setSize(700, 700);
+		setVisible(true);
+	}
+}

@@ -1,0 +1,9 @@
+package Frame;
+
+import javax.swing.JFrame;
+
+public class PurchaseFrame extends JFrame {
+	public PurchaseFrame(int p_no) {
+		
+	}
+}

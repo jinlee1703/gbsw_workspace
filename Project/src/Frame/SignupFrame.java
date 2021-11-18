@@ -10,6 +10,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -138,14 +144,75 @@ public class SignupFrame extends JFrame {
 		submitBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// 중복아이디 체크
 				if (!check) {
 					OptionPane.showErrorMessage("아이디 중복확인을 해주세요.");					
 				} else if (!field[2].getText().equals(field[3].getText())) {
 					OptionPane.showErrorMessage("비밀번호가 일치하지 않습니다.");
 				} else {
+					if (field[2].getText().length() < 4) {
+						OptionPane.showErrorMessage("비밀번호를 확인해주세요.");
+						return;
+					}
+					// 정규표현식 체크
+					boolean charCheck = false;
+					boolean numCheck = false;
+					boolean specialCheck = false;
+					for (int i = 0; i < field[2].getText().length(); i++) {
+						if (String.valueOf(field[2].getText().charAt(i)).matches("[a-z|A-Z]"))
+							charCheck = true;
+						if (String.valueOf(field[2].getText().charAt(i)).matches("[0-9]"))
+							numCheck = true;
+						if (String.valueOf(field[2].getText().charAt(i)).matches("[^a-zA-Z0-9]"))
+							specialCheck = true;
+					}
 					
+					if (!(charCheck && numCheck && specialCheck)) {
+						OptionPane.showErrorMessage("비밀번호를 확인해주세요.");
+						return;
+					}
+					
+					// 날짜 체크
+					if (!validationDate(field[5].getText())) {
+						OptionPane.showErrorMessage("생년월일을 확인해주세요.");
+						return;
+					}
+					
+					try {
+						DBInterface.stmt.execute("INSERT INTO `2021지방_1`.`user` "
+								+ "(`u_id`, `u_pw`, `u_name`, `u_phone`, `u_age`, `u_10percent`, `u_30percent`) "
+								+ "VALUES ('" + field[1].getText() + "', '" + field[2].getText() + "', '" + field[0].getText() + "', '" + field[4].getText() + "', '" + field[5].getText() + "', '0', '0')");
+						OptionPane.showInfoMessage("회원가입이 완료되었습니다.");
+						dispose();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
+		
+		
 	}
+	
+	public boolean validationDate(String checkDate){
+	   try{
+	         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	         dateFormat.setLenient(false);
+	         Date date = dateFormat.parse(checkDate);
+	         
+	         LocalDate today = LocalDate.now();
+	         LocalDate day = LocalDate.of(1900 + date.getYear(), 1 + date.getMonth(), date.getDate());
+	         
+	         System.out.println(today + " / " + day);
+	         if (day.isAfter(today)) {
+	        	 return false;
+	         } else {
+		         return true;
+	         }
+	       }catch (Exception e){
+	         return false;
+	       }
+
+		}
 }

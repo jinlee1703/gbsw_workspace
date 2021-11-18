@@ -1,0 +1,16 @@
+package Frame;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class PurchaseFrame extends JFrame {
+	private JLabel img = new JLabel();
+	
+	public PurchaseFrame(int p_no) {
+		setTitle("구매");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		setSize(500, 500);
+		setVisible(true);
+	}
+}

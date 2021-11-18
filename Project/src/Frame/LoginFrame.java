@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -80,13 +78,15 @@ public class LoginFrame extends JFrame {
 						
 						if (rs.next()) {
 							OptionPane.showInfoMessage(rs.getString(3) + "님 환영합니다.");
+							new ProductListFrame(idField.getText(), rs.getString(3));
+							dispose();
 						} else if (idField.getText().equals("admin") && pwField.getText().equals("1234")) {
 							OptionPane.showInfoMessage("관리자로 로그인 되었습니다.");
 							
 						} else {
 							OptionPane.showErrorMessage("회원정보가 일치하지 않습니다.");
 						}
-					} catch (SQLException e1) {
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}

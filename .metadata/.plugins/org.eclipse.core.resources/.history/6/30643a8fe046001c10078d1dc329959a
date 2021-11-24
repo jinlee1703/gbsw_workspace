@@ -1,9 +1,0 @@
-package MainClass;
-
-import DBInterface.DBInterface;
-
-public class MainClass {
-	public static void main(String[] args) throws Exception {
-		DBInterface.init();
-	}
-}

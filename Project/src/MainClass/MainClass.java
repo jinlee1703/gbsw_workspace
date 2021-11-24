@@ -2,6 +2,7 @@ package MainClass;
 
 import DBInterface.DBInterface;
 import Dialog.MonthChooseDialog;
+import Frame.AttendanceFrame;
 import Frame.LoginFrame;
 import Frame.ProductListFrame;
 import Frame.PurchaseFrame;
@@ -15,6 +16,7 @@ public class MainClass {
 //		new ProductListFrame("rlsmd1", "장지용");
 //		new PurchaseFrame("rlsmd1", 1);
 //		new MonthChooseFrame();
-		new PurchaseListFrame("rlsmd1");
+//		new PurchaseListFrame("rlsmd1");
+		new AttendanceFrame("rlsmd1");
 	}
 }

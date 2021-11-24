@@ -1,0 +1,13 @@
+package Frame;
+
+import javax.swing.JFrame;
+
+public class ProductManagementFrame extends JFrame {
+	public ProductManagementFrame() {
+		setTitle("상품관리");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		setSize(500, 500);
+		setVisible(true);
+	}
+}

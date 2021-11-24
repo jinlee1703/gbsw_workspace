@@ -1,9 +1,0 @@
-package OptionPane;
-
-import javax.swing.JOptionPane;
-
-public class OptionPane extends JOptionPane {
-	public OptionPane() {
-		setVisible(true);
-	}
-}

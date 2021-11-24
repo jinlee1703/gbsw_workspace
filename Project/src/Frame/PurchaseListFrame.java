@@ -6,12 +6,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -135,6 +139,42 @@ public class PurchaseListFrame extends JFrame {
 		menu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Date today = new SimpleDateFormat("yyyy-MM-dd").parse(LocalDate.now().toString());
+					Date selectDay = new SimpleDateFormat("yyyy-MM-dd").parse(table.getValueAt(table.getSelectedRow(), 0).toString());
+					
+					if (today.equals(selectDay)) {
+						try {
+							DBInterface.stmt.execute("DELETE FROM `2021지방_1`.`purchase` WHERE (`pu_no` = '" + table.getValueAt(table.getSelectedRow(), 6).toString() + "')");
+							
+							OptionPane.showInfoMessage("삭제되었습니다.");
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					} else {
+						//재고 내역 수정
+						try {
+							// 취소(삭제)
+							DBInterface.stmt.execute("DELETE FROM `2021지방_1`.`purchase` WHERE (`pu_no` = '" + table.getValueAt(table.getSelectedRow(), 6).toString() + "')");
+							
+							// 재고 누적(업데이트)
+							DBInterface.stmt.execute("UPDATE `2021지방_1`.`product` SET `p_stock` = `p_stock` + " + table.getValueAt(table.getSelectedRow(), 4).toString() + " WHERE (`p_no` = '" + table.getValueAt(table.getSelectedRow(), 6).toString() + "');");
+							
+							// 쿠폰 반환
+							//??
+							
+							
+							OptionPane.showInfoMessage("취소되었습니다.");
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}	
+					}
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
 				System.out.println(table.getValueAt(table.getSelectedRow(), 6));
 			}
 		});

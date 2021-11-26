@@ -38,7 +38,6 @@ public class TableSetting {
 		DBInterface.stmt.execute("CREATE TABLE `2021지방_1`.`purchase` (  `pu_no` INT NOT NULL AUTO_INCREMENT,  `p_no` INT NULL,  `pu_price` INT NULL,  `pu_count` INT NULL,  `coupon` INT NULL,  `u_no` INT NULL,  `pu_date` DATE NULL,  PRIMARY KEY (`pu_no`),  INDEX `purchase_fk1_idx` (`p_no` ASC) VISIBLE,  INDEX `purchase_fk2_idx` (`u_no` ASC) VISIBLE,  CONSTRAINT `purchase_fk1`    FOREIGN KEY (`p_no`)    REFERENCES `2021지방_1`.`product` (`p_no`)    ON DELETE NO ACTION    ON UPDATE NO ACTION,  CONSTRAINT `purchase_fk2`    FOREIGN KEY (`u_no`)    REFERENCES `2021지방_1`.`user` (`u_no`)    ON DELETE NO ACTION    ON UPDATE NO ACTION);");
 		DBInterface.stmt.execute("CREATE TABLE `2021지방_1`.`attendance` (  `a_no` INT NOT NULL AUTO_INCREMENT,  `u_no` INT NULL,  `a_date` DATE NULL,  PRIMARY KEY (`a_no`),  INDEX `attendance_fk_idx` (`u_no` ASC) VISIBLE,  CONSTRAINT `attendance_fk`    FOREIGN KEY (`u_no`)    REFERENCES `2021지방_1`.`user` (`u_no`)    ON DELETE NO ACTION    ON UPDATE NO ACTION);");
 		DBInterface.stmt.execute("CREATE TABLE `2021지방_1`.`coupon` (  `c_no` INT NOT NULL AUTO_INCREMENT,  `u_no` INT NULL,  `c_date` VARCHAR(15) NULL,  `c_10percent` INT NULL,  `c_30percent` VARCHAR(45) NULL,  PRIMARY KEY (`c_no`),  INDEX `coupone_fk_idx` (`u_no` ASC) VISIBLE,  CONSTRAINT `coupone_fk`    FOREIGN KEY (`u_no`)    REFERENCES `2021지방_1`.`user` (`u_no`)    ON DELETE NO ACTION    ON UPDATE NO ACTION);");
-		
 		System.out.println("create Tables:: Success");
 	}
 	

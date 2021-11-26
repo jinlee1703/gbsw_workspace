@@ -1,0 +1,74 @@
+package Frame;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import DBInterface.DBInterface;
+
+public class ProductManagementFrame extends JFrame {
+	private String[] header = {"상품 번호", "상품 카테고리", "상품명", "상품 가격", "상품 재고", "상품 설명"};
+	private DefaultTableModel model = new DefaultTableModel(header, 0);
+	private JTable table = new JTable(model);
+	private JScrollPane scroll = new JScrollPane(table);
+	
+	private JComboBox<String> combo = new JComboBox<String>();
+	
+	public ProductManagementFrame() {
+		setTitle("상품관리");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		formDesign();
+		eventHandler();
+		setSize(500, 500);
+		setVisible(true);
+	}
+	
+	public void formDesign() {
+		setCombo();
+		add(combo);
+	}
+	
+	public void eventHandler() {}
+	
+	public void setCombo() {
+		combo.addItem("전체");
+		try {
+			ResultSet rs = DBInterface.stmt.executeQuery("select * from category");
+			
+			while (rs.next()) {
+				combo.addItem(rs.getString(2));
+			}
+			
+			int category = combo.getSelectedIndex();
+			
+			if (category == 0)
+				rs = DBInterface.stmt.executeQuery("SELECT p.p_no, c.c_name, p.p_name, format(p.p_price,'#,###'), p.p_stock, p.p_explanation "
+						+ "FROM product as p "
+						+ "join category as c "
+						+ "on p.c_no=c.c_no");
+			else 
+				rs = DBInterface.stmt.executeQuery("SELECT p.p_no, c.c_name, p.p_name, format(p.p_price,'#,###'), p.p_stock, p.p_explanation "
+						+ "FROM product as p "
+						+ "join category as c "
+						+ "on p.c_no=c.c_no "
+						+ "where c_no=" +  category);
+			
+			String[] row = new String[6];
+			while(rs.next()) {
+				row[0] = rs.getString(1);
+				row[0] = rs.getString(1);
+				row[0] = rs.getString(1);
+				row[0] = rs.getString(1);
+				row[0] = rs.getString(1);
+				row[0] = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

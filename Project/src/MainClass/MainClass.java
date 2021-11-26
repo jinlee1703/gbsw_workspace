@@ -5,6 +5,7 @@ import Dialog.MonthChooseDialog;
 import Frame.AttendanceFrame;
 import Frame.LoginFrame;
 import Frame.ProductListFrame;
+import Frame.ProductManagementFrame;
 import Frame.PurchaseFrame;
 import Frame.PurchaseListFrame;
 import OptionPane.OptionPane;
@@ -17,6 +18,7 @@ public class MainClass {
 //		new PurchaseFrame("rlsmd1", 1);
 //		new MonthChooseFrame();
 //		new PurchaseListFrame("rlsmd1");
-		new AttendanceFrame("rlsmd1");
+//		new AttendanceFrame("rlsmd1");
+		new ProductManagementFrame();
 	}
 }

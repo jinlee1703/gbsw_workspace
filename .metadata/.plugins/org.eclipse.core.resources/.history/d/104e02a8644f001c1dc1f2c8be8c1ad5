@@ -1,0 +1,10 @@
+package Frame;
+
+import javax.swing.JFrame;
+
+public class ProductUpdateFrame extends JFrame {
+	
+	public ProductUpdateFrame() {
+		
+	}
+}

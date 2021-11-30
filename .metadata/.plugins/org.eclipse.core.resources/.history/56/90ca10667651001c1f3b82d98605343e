@@ -1,0 +1,62 @@
+package Frame;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class ProductUpdateFrame extends JFrame {
+	private JLabel img = new JLabel();
+	private JButton imgBtn  = new JButton("사진 넣기");
+	private JTextField name = new JTextField();
+	private JComboBox<String> category = new JComboBox<String>();
+	private JTextField price = new JTextField();
+	private JTextField stock = new JTextField();
+	private JTextField explanation = new JTextField();
+	private JButton updateBtn = new JButton("수정");
+	private JButton cancelBtn = new JButton("취소");
+	
+	private GridBagConstraints gbc = new GridBagConstraints();
+	
+	public ProductUpdateFrame() {
+		setTitle("상품수정");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		formDesign();
+		eventHandler();
+		setSize(400, 300);
+		setVisible(true);
+	}
+	
+	public void formDesign() {
+		setLayout(new GridBagLayout());
+		
+		gbc.weightx=1.0;
+		gbc.weighty=1.0;
+		
+		gbc.fill = GridBagConstraints.BOTH;
+		
+		layout(new JButton("1번째"),0,0,4,3);
+		layout(new JButton("1번째"),0,0,4,3);
+	}
+	
+	public void eventHandler() {
+		
+	}
+	
+	public void layout(Component obj, int x, int y, int width, int height) {
+		gbc.gridx = x;					// 시작위치 x
+		gbc.gridy = y;					// 시작위치 y
+		gbc.gridwidth = width;			// 컨테이너 너비
+		gbc.gridheight = height;		// 컨테이너 높이
+		add(obj, gbc);
+	}
+}

@@ -9,19 +9,26 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.EventObject;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.CellEditorListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 
 import DBInterface.DBInterface;
 
 public class ProductManagementFrame extends JFrame {
 	private String[] header = {"상품 번호", "상품 카테고리", "상품명", "상품 가격", "상품 재고", "상품 설명"};
-	private DefaultTableModel model = new DefaultTableModel(header, 0);
+	private DefaultTableModel model = new DefaultTableModel(header, 0) {
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		};
+	};
 	private JTable table = new JTable(model);
 	private JScrollPane scroll = new JScrollPane(table);
 	
@@ -60,8 +67,7 @@ public class ProductManagementFrame extends JFrame {
 				table.setSelectionBackground(Color.YELLOW);
 				
 				if (e.getClickCount() == 2)
-					System.out.println(); // 상품수정 폼 열기
-					
+					new ProductUpdateFrame(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
 			}
 		});
 	}

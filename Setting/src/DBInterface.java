@@ -7,7 +7,7 @@ public class DBInterface {
 	public static Statement stmt;
 	
 	public static void init() throws Exception {
-		Class.forName("com.mysql.cj.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");	// "org.mariadb.jdbc.Driver"
 		conn = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "abc123");
 		stmt = conn.createStatement();
 		

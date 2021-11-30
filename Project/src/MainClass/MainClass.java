@@ -6,6 +6,7 @@ import Frame.AttendanceFrame;
 import Frame.LoginFrame;
 import Frame.ProductListFrame;
 import Frame.ProductManagementFrame;
+import Frame.ProductUpdateFrame;
 import Frame.PurchaseFrame;
 import Frame.PurchaseListFrame;
 import OptionPane.OptionPane;
@@ -20,5 +21,6 @@ public class MainClass {
 //		new PurchaseListFrame("rlsmd1");
 //		new AttendanceFrame("rlsmd1");
 		new ProductManagementFrame();
+//		new ProductUpdateFrame(1);
 	}
 }

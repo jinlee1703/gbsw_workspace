@@ -1,0 +1,85 @@
+package Frame;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class ProductUpdateFrame extends JFrame {
+	private JLabel img = new JLabel();
+	private JButton imgBtn  = new JButton("사진 넣기");
+	private JTextField name = new JTextField();
+	private JComboBox<String> categoryCombo = new JComboBox<String>();
+	private JTextField categoryText = new JComboBox<String>();
+	private JTextField price = new JTextField();
+	private JTextField stock = new JTextField();
+	private JTextField explanation = new JTextField();
+	private JButton updateBtn = new JButton("수정");
+	private JButton cancelBtn = new JButton("취소");
+	
+	private JPanel imgPanel = new JPanel(new BorderLayout());
+	private JPanel textPanel = new JPanel(new GridBagLayout());
+	private GridBagConstraints gbc = new GridBagConstraints();
+	
+	public ProductUpdateFrame() {
+		setTitle("상품수정");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		formDesign();
+		eventHandler();
+		setSize(400, 500);
+		setVisible(true);
+	}
+	
+	public void formDesign() {
+		setLayout(new GridLayout(2, 1));
+		add(imgPanel);
+		imgPanel.add(img);
+		imgPanel.add(imgBtn, BorderLayout.SOUTH);
+		
+		add(textPanel);
+		gbc.weightx=1.0;
+		gbc.weighty=1.0;
+		
+		gbc.fill = GridBagConstraints.BOTH;
+		
+		add(textPanel);
+		layout(new JLabel("상품명:"), 0, 0, 1, 1);
+		layout(name, 1, 0, 1, 1);
+		
+		layout(new JLabel("카테고리:"), 0, 1, 1, 1);
+		layout(category, 1, 1, 1, 1);
+		layout(, 2, 1, 1, 1);
+		
+		layout(new JLabel("가격:"), 0, 2, 1, 1);
+		layout(new JButton("가격 필드"), 1, 2, 1, 1);
+		
+		layout(new JLabel("재고:"), 0, 3, 1, 1);
+		layout(new JButton("재고 필드"), 1, 3, 1, 1);
+		
+		layout(new JLabel("설명:"), 0, 4, 1, 1);
+		layout(new JButton("설명 필드"), 1, 4, 2, 1);
+		
+		layout(new JButton("버튼 패널"), 0, 5, 3, 1);
+	}
+	
+	public void eventHandler() {
+		
+	}
+	
+	public void layout(Component obj, int x, int y, int width, int height) {
+		gbc.gridx = x;					// 시작위치 x
+		gbc.gridy = y;					// 시작위치 y
+		gbc.gridwidth = width;			// 컨테이너 너비
+		gbc.gridheight = height;		// 컨테이너 높이
+		textPanel.add(obj, gbc);
+	}
+}

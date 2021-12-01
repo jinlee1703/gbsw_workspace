@@ -138,6 +138,8 @@ public class AttendanceFrame extends JFrame {
 							} else {
 								DBInterface.stmt.execute("INSERT INTO `2021지방_1`.`attendance` (`u_no`, `a_date`) VALUES ('" + u_no + "', curdate())");
 								repaint();
+								
+								ResultSet rs = DBInterface.stmt.executeQuery("");
 							}
 						} catch (SQLException e1) {
 							e1.printStackTrace();

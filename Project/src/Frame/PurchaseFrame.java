@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import DBInterface.DBInterface;
 import OptionPane.OptionPane;
 
-public class PurchaseFrame extends JFrame {
+public class PurchaseFrame extends JFrame implements Runnable {
 	private int p_no;
 	private String u_id;
 	private JPanel p = new JPanel(null);
@@ -48,6 +48,9 @@ public class PurchaseFrame extends JFrame {
 	private JScrollPane listScroll = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	private JPanel[] list;
 	
+	private Thread thread = new Thread(PurchaseFrame.this);
+	private int listCnt;
+	
 	public PurchaseFrame(String u_id, int p_no) {
 		setTitle("구매");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,6 +60,8 @@ public class PurchaseFrame extends JFrame {
 		eventHandler();
 		setSize(600, 500);
 		setVisible(true);
+		
+		thread.start();
 	}
 	
 	public void formDesign() {
@@ -186,8 +191,14 @@ public class PurchaseFrame extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
+			}
+		});
+		
+		cancelBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				thread.stop();
+				dispose();
 			}
 		});
 	}
@@ -225,6 +236,7 @@ public class PurchaseFrame extends JFrame {
 					list[cnt].add(listImgLabel, BorderLayout.CENTER);
 					list[cnt].add(new JLabel(rs.getString(3), JLabel.CENTER), BorderLayout.SOUTH);
 					listPanel.add(list[cnt]);
+					listCnt++;
 					cnt++;
 				}
 			}
@@ -236,5 +248,24 @@ public class PurchaseFrame extends JFrame {
 		pName.setEnabled(false);
 		pPrice.setEnabled(false);
 		pExplanation.setEnabled(false);
+	}
+
+	@Override
+	public void run() {
+		int cnt = 0;
+		int max = listScroll.getHorizontalScrollBar().getMaximum();
+		
+		while (true) {
+			try {
+				Thread.sleep(1000);
+				cnt += max / listCnt;
+				listScroll.getHorizontalScrollBar().setValue(cnt);
+				
+				if (cnt > 880)
+					cnt = 0;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

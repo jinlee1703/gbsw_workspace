@@ -15,12 +15,12 @@ public class MainClass {
 	public static void main(String[] args) throws Exception {
 		DBInterface.init();
 //		new LoginFrame();
-//		new ProductListFrame("rlsmd1", "장지용");
+		new ProductListFrame("rlsmd1", "장지용");
 //		new PurchaseFrame("rlsmd1", 1);
 //		new MonthChooseFrame();
 //		new PurchaseListFrame("rlsmd1");
 //		new AttendanceFrame("rlsmd1");
-		new ProductManagementFrame();
+//		new ProductManagementFrame();
 //		new ProductUpdateFrame(1);
 	}
 }

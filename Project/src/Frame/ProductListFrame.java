@@ -169,6 +169,24 @@ public class ProductListFrame extends JFrame {
 				}
 			}
 		});
+		
+		purchaseListBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					new PurchaseListFrame(id);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		eventBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AttendanceFrame(id);
+			}
+		});
 	}
 	
 	public void categoryRefresh() throws Exception {
@@ -198,12 +216,13 @@ public class ProductListFrame extends JFrame {
 				
 				Image img = new ImageIcon("datafile/이미지/" + rs.getString(3) + ".jpg").getImage().getScaledInstance(180, 130, Image.SCALE_DEFAULT);
 				JLabel imgLabel = new JLabel(new ImageIcon(img));
+				int p_no = rs.getInt(1);
 				imgLabel.setToolTipText(rs.getString(6));
 				imgLabel.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if (e.getClickCount() == 2) {
-							
+							new PurchaseFrame(id, p_no);
 						}
 					}
 				});

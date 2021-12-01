@@ -82,7 +82,8 @@ public class LoginFrame extends JFrame {
 							dispose();
 						} else if (idField.getText().equals("admin") && pwField.getText().equals("1234")) {
 							OptionPane.showInfoMessage("관리자로 로그인 되었습니다.");
-							
+							new ProductManagementFrame();
+							dispose();
 						} else {
 							OptionPane.showErrorMessage("회원정보가 일치하지 않습니다.");
 						}

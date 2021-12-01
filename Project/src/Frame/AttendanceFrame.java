@@ -78,7 +78,35 @@ public class AttendanceFrame extends JFrame {
 		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Calendar date = Calendar.getInstance();
+					int year = date.get(Calendar.YEAR);					// 연도	
+					int month = date.get(Calendar.MONTH) + 1;			// 월
 				
+					ResultSet rs = DBInterface.stmt.executeQuery("select count(*) from attendance where u_no='" + u_no + "' and year(a_date)='" + year + "' month(a_date)='" + month + "'");
+					
+					if (rs.next()) {
+						int aCnt = rs.getInt(1);
+						
+						rs = DBInterface.stmt.executeQuery("select * from coupon where u_no='" + u_id + "' and c_date='" + year + "-" + String.format("%02d", month) + "'");
+						
+						if (rs.next()) {
+							if (aCnt >= 5 && rs.getInt(4) == 1 && rs.getInt(5) == 1) {
+								OptionPane.showErrorMessage("쿠폰을 이미 받았습니다");
+							} else if (aCnt >= 3 && rs.getInt(4) == 1) {
+								OptionPane.showErrorMessage("쿠폰을 이미 받았습니다");
+							} else {
+								if (aCnt >= 5) {
+									DBInterface.stmt.execute("INSERT INTO `2021지방_1`.`coupon` (`u_no`, `c_date`, `c_10percent`, `c_30percent`) VALUES ('" + u_no + "', '" + year + "-" + String.format("%02d", month) + "', '1', '1')");
+								} else if (aCnt >= 3) {
+									DBInterface.stmt.execute("INSERT INTO `2021지방_1`.`coupon` (`u_no`, `c_date`, `c_10percent`, `c_30percent`) VALUES ('" + u_no + "', '" + year + "-" + String.format("%02d", month) + "', '1', '0')");
+								}
+								
+								new CouponFrame(u_no, aCnt);
+							}
+						} 
+					}
+				} catch (Exception e1) {}
 			}
 		});
 	}
@@ -138,8 +166,6 @@ public class AttendanceFrame extends JFrame {
 							} else {
 								DBInterface.stmt.execute("INSERT INTO `2021지방_1`.`attendance` (`u_no`, `a_date`) VALUES ('" + u_no + "', curdate())");
 								repaint();
-								
-								ResultSet rs = DBInterface.stmt.executeQuery("");
 							}
 						} catch (SQLException e1) {
 							e1.printStackTrace();

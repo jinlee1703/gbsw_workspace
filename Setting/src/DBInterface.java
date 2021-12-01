@@ -1,4 +1,7 @@
 import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -12,5 +15,7 @@ public class DBInterface {
 		stmt = conn.createStatement();
 		
 		System.out.println("DB Connect");
+		
+		
 	}
 }
